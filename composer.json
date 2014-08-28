@@ -14,7 +14,8 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-jui": "*",
         "vova07/yii2-start": "*",
-        "vova07/yii2-start-behaviors": "*"
+        "vova07/yii2-start-behaviors": "*",
+        "vova07/yii2-imperavi-widget": "*"
     },
     "autoload": {
         "psr-4": {
