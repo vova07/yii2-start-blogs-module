@@ -108,7 +108,7 @@ class Blog extends ActiveRecord
             // Trim
             [['title', 'snippet', 'content'], 'trim'],
             // CreatedAtJui and UpdatedAtJui
-            [['createdAtJui', 'updatedAtJui'], 'date'],
+            [['createdAtJui', 'updatedAtJui'], 'date', 'format' => 'd.m.Y'],
             // Status
             [
                 'status_id',
