@@ -6,8 +6,8 @@
  * @var \yii\base\View $this View
  * @var \yii\widgets\ActiveForm $form Form
  * @var \vova07\blogs\models\backend\Blog $model Model
+ * @var \vova07\themes\admin\widgets\Box $box Box widget instance
  * @var array $statusArray Statuses array
- * @var \backend\themes\admin\widgets\Box $box Box widget instance
  */
 
 use vova07\blogs\Module;

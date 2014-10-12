@@ -28,6 +28,7 @@ use yii\helpers\Html;
 
     <div class="entry-meta">
         <span><i class="icon-calendar"></i> <?= $model->created ?></span>
+        <span><i class="icon-eye-open"></i> <?= $model->views ?></span>
     </div>
     <?= $model->snippet ?>
     <?= Html::a(

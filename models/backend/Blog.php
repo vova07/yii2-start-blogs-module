@@ -38,7 +38,7 @@ class Blog extends \vova07\blogs\models\Blog
     public function getCreatedAtJui()
     {
         if (!$this->isNewRecord && $this->_createdAtJui === null) {
-            $this->_createdAtJui = Yii::$app->formatter->asDate($this->created_at, 'Y-m-d');
+            $this->_createdAtJui = Yii::$app->formatter->asDate($this->created_at);
         }
         return $this->_createdAtJui;
     }
@@ -57,7 +57,7 @@ class Blog extends \vova07\blogs\models\Blog
     public function getUpdatedAtJui()
     {
         if (!$this->isNewRecord && $this->_updatedAtJui === null) {
-            $this->_updatedAtJui = Yii::$app->formatter->asDate($this->updated_at, 'Y-m-d');
+            $this->_updatedAtJui = Yii::$app->formatter->asDate($this->updated_at);
         }
         return $this->_updatedAtJui;
     }
@@ -98,6 +98,7 @@ class Blog extends \vova07\blogs\models\Blog
     {
         $rules = parent::rules();
         $rules[] = ['status_id', 'in', 'range' => array_keys(self::getStatusArray())];
+        $rules[] = [['createdAtJui', 'updatedAtJui'], 'date', 'format' => 'd.m.Y'];
 
         return $rules;
     }
@@ -144,5 +145,23 @@ class Blog extends \vova07\blogs\models\Blog
         ];
 
         return $scenarios;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->_createdAtJui) {
+                $this->created_at = Yii::$app->formatter->asTimestamp($this->_createdAtJui);
+            }
+            if ($this->_updatedAtJui) {
+                $this->updated_at = Yii::$app->formatter->asTimestamp($this->_updatedAtJui);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace vova07\blogs\models;
 
-use vova07\behaviors\PurifierBehavior;
+use vova07\base\behaviors\PurifierBehavior;
 use vova07\blogs\Module;
 use vova07\blogs\traits\ModuleTrait;
 use vova07\fileapi\behaviors\UploadBehavior;
@@ -107,8 +107,6 @@ class Blog extends ActiveRecord
             [['title', 'content'], 'required'],
             // Trim
             [['title', 'snippet', 'content'], 'trim'],
-            // CreatedAtJui and UpdatedAtJui
-            [['createdAtJui', 'updatedAtJui'], 'date', 'format' => 'd.m.Y'],
             // Status
             [
                 'status_id',

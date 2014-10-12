@@ -18,21 +18,21 @@ $this->params['breadcrumbs'][] = $this->title; ?>
         <div class="widget ads">
             <div class="row">
                 <div class="col-xs-6">
-                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@frontend/themes/site/images/ads/ad1.png')[1] ?>" alt="Ads" />
+                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@vova07/themes/site/images/ads/ad1.png')[1] ?>" alt="Ads" />
                 </div>
 
                 <div class="col-xs-6">
-                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@frontend/themes/site/images/ads/ad2.png')[1] ?>" alt="Ads" />
+                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@vova07/themes/site/images/ads/ad2.png')[1] ?>" alt="Ads" />
                 </div>
             </div>
             <p> </p>
             <div class="row">
                 <div class="col-xs-6">
-                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@frontend/themes/site/images/ads/ad3.png')[1] ?>" alt="Ads" />
+                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@vova07/themes/site/images/ads/ad3.png')[1] ?>" alt="Ads" />
                 </div>
 
                 <div class="col-xs-6">
-                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@frontend/themes/site/images/ads/ad4.png')[1] ?>" alt="Ads" />
+                    <img class="img-responsive img-rounded" src="<?= $this->assetManager->publish('@vova07/themes/site/images/ads/ad4.png')[1] ?>" alt="Ads" />
                 </div>
             </div>
         </div><!--/.ads-->

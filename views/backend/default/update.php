@@ -5,11 +5,11 @@
  *
  * @var yii\base\View $this View
  * @var vova07\blogs\models\backend\Blog $model Model
+ * @var \vova07\themes\admin\widgets\Box $box Box widget instance
  * @var array $statusArray Statuses array
- * @var \backend\themes\admin\widgets\Box $box Box widget instance
  */
 
-use backend\themes\admin\widgets\Box;
+use vova07\themes\admin\widgets\Box;
 use vova07\blogs\Module;
 
 $this->title = Module::t('blogs', 'BACKEND_UPDATE_TITLE');
@@ -20,7 +20,16 @@ $this->params['breadcrumbs'] = [
         'url' => ['index'],
     ],
     $this->params['subtitle']
-]; ?>
+];
+$boxButtons = ['{cancel}'];
+
+if (Yii::$app->user->can('BCreateBlogs')) {
+    $boxButtons[] = '{create}';
+}
+if (Yii::$app->user->can('BDeleteBlogs')) {
+    $boxButtons[] = '{delete}';
+}
+$boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null; ?>
 <div class="row">
     <div class="col-sm-12">
         <?php $box = Box::begin(
@@ -33,7 +42,7 @@ $this->params['breadcrumbs'] = [
                 'bodyOptions' => [
                     'class' => 'table-responsive'
                 ],
-                'buttonsTemplate' => '{cancel} {delete}'
+                'buttonsTemplate' => $boxButtons
             ]
         );
         echo $this->render(

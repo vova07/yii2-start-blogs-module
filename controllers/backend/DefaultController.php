@@ -2,17 +2,17 @@
 
 namespace vova07\blogs\controllers\backend;
 
-use backend\modules\admin\components\Controller;
+use vova07\admin\components\Controller;
 use vova07\blogs\models\backend\Blog;
 use vova07\blogs\models\backend\BlogSearch;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
 use vova07\imperavi\actions\GetAction as ImperaviGet;
 use vova07\imperavi\actions\UploadAction as ImperaviUpload;
+use Yii;
 use yii\filters\VerbFilter;
 use yii\web\HttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-use Yii;
 
 /**
  * Default backend controller.
@@ -26,11 +26,32 @@ class DefaultController extends Controller
     {
         $behaviors = parent::behaviors();
 
+        $behaviors['access']['rules'] = [
+            [
+                'allow' => true,
+                'actions' => ['index'],
+                'roles' => ['BViewBlogs']
+            ]
+        ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['create'],
+            'roles' => ['BCreateBlogs']
+        ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['update'],
+            'roles' => ['BUpdateBlogs']
+        ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['delete', 'batch-delete'],
+            'roles' => ['BDeleteBlogs']
+        ];
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),
             'actions' => [
                 'index' => ['get'],
-                'view' => ['get'],
                 'create' => ['get', 'post'],
                 'update' => ['get', 'put', 'post'],
                 'delete' => ['post', 'delete'],
@@ -79,14 +100,11 @@ class DefaultController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->get());
         $statusArray = Blog::getStatusArray();
 
-        return $this->render(
-            'index',
-            [
+        return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
                 'statusArray' => $statusArray
-            ]
-        );
+            ]);
     }
 
     /**
@@ -111,13 +129,10 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render(
-            'create',
-            [
+        return $this->render('create', [
                 'model' => $model,
                 'statusArray' => $statusArray
-            ]
-        );
+            ]);
     }
 
     /**
@@ -147,38 +162,10 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render(
-            'update',
-            [
+        return $this->render('update', [
                 'model' => $model,
                 'statusArray' => $statusArray
-            ]
-        );
-    }
-
-    /**
-     * Find model by ID.
-     *
-     * @param integer|array $id Post ID
-     *
-     * @return \vova07\blogs\models\backend\Blog Model
-     *
-     * @throws HttpException 404 error if post not found
-     */
-    protected function findModel($id)
-    {
-        if (is_array($id)) {
-            /** @var \vova07\blogs\models\backend\Blog $model */
-            $model = Blog::findAll($id);
-        } else {
-            /** @var \vova07\blogs\models\backend\Blog $model */
-            $model = Blog::findOne($id);
-        }
-        if ($model !== null) {
-            return $model;
-        } else {
-            throw new HttpException(404);
-        }
+            ]);
     }
 
     /**
@@ -210,6 +197,31 @@ class DefaultController extends Controller
             return $this->redirect(['index']);
         } else {
             throw new HttpException(400);
+        }
+    }
+
+    /**
+     * Find model by ID.
+     *
+     * @param integer|array $id Post ID
+     *
+     * @return \vova07\blogs\models\backend\Blog Model
+     *
+     * @throws HttpException 404 error if post not found
+     */
+    protected function findModel($id)
+    {
+        if (is_array($id)) {
+            /** @var \vova07\blogs\models\backend\Blog $model */
+            $model = Blog::findAll($id);
+        } else {
+            /** @var \vova07\blogs\models\backend\Blog $model */
+            $model = Blog::findOne($id);
+        }
+        if ($model !== null) {
+            return $model;
+        } else {
+            throw new HttpException(404);
         }
     }
 }

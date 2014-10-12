@@ -1,5 +1,5 @@
 Yii2-Start blogs module.
-==================
+========================
 This module provide a blogs managing system for Yii2-Start application.
 
 Installation
@@ -20,3 +20,28 @@ or add
 ```
 
 to the require section of your `composer.json` file.
+
+Configuration
+=============
+
+- Add module to config section:
+
+```
+'modules' => [
+    'blogs' => [
+        'class' => 'vova07\blogs\Module'
+    ]
+]
+```
+
+- Run migrations:
+
+```
+php yii migrate --migrationPath=@vova07/blogs/migrations
+```
+
+- Run RBAC command:
+
+```
+php yii blogs/rbac/add
+```
