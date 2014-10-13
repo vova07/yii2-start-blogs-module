@@ -48,6 +48,11 @@ class DefaultController extends Controller
             'actions' => ['delete', 'batch-delete'],
             'roles' => ['BDeleteBlogs']
         ];
+        $behaviors['access']['rules'][] = [
+            'allow' => true,
+            'actions' => ['imperavi-get', 'imperavi-image-upload', 'imperavi-file-upload', 'fileapi-upload'],
+            'roles' => ['BCreateBlogs', 'BUpdateBlogs']
+        ];
         $behaviors['verbs'] = [
             'class' => VerbFilter::className(),
             'actions' => [
