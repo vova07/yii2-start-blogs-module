@@ -2,7 +2,7 @@
 
 namespace vova07\blogs\traits;
 
-use vova07\blogs\Module;
+use Yii;
 
 /**
  * Class ModuleTrait
@@ -22,7 +22,7 @@ trait ModuleTrait
     public function getModule()
     {
         if ($this->_module === null) {
-            $this->_module = Module::getInstance();
+            $this->_module = Yii::$app->getModule('blogs');
         }
         return $this->_module;
     }
