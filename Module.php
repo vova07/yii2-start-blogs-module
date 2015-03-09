@@ -113,10 +113,13 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        if ($this->getIsBackend() === true) {
-            $this->setViewPath('@vova07/blogs/views/backend');
-        } else {
-            $this->setViewPath('@vova07/blogs/views/frontend');
+        // @todo Refactor this line if https://github.com/yiisoft/yii2/issues/7647 will be solved.
+        if ($this->getViewPath() === $this->getBasePath() . DIRECTORY_SEPARATOR . 'views') {
+            if ($this->getIsBackend() === true) {
+                $this->setViewPath('@vova07/blogs/views/backend');
+            } else {
+                $this->setViewPath('@vova07/blogs/views/frontend');
+            }
         }
     }
 
