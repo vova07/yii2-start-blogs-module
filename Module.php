@@ -8,12 +8,12 @@ use Yii;
  * Module [[Blogs]]
  * Yii2 blogs module.
  */
-class Module extends \yii\base\Module
+class Module extends \vova07\base\components\Module
 {
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'vova07\blogs\controllers\frontend';
+    public static $name = 'blogs';
 
     /**
      * @var integer Posts per page
@@ -71,17 +71,12 @@ class Module extends \yii\base\Module
     public $contentUrl = '/statics/blogs/content';
 
     /**
-     * @var boolean Whether module is used for backend or not
-     */
-    protected $_isBackend;
-
-    /**
      * @inheritdoc
      */
     public function __construct($id, $parent = null, $config = [])
     {
         if (!isset($config['viewPath'])) {
-            if ($this->getIsBackend() === true) {
+            if ($this->isBackend === true) {
                 $config['viewPath'] = '@vova07/blogs/views/backend';
             } else {
                 $config['viewPath'] = '@vova07/blogs/views/frontend';
@@ -89,50 +84,5 @@ class Module extends \yii\base\Module
         }
 
         parent::__construct($id, $parent, $config);
-    }
-
-    /**
-     * Check if module is used for backend application.
-     *
-     * @return boolean true if it's used for backend application
-     */
-    public function getIsBackend()
-    {
-        if ($this->_isBackend === null) {
-            $this->_isBackend = strpos($this->controllerNamespace, 'backend') === false ? false : true;
-        }
-
-        return $this->_isBackend;
-    }
-
-    /**
-     * Translates a message to the specified language.
-     *
-     * This is a shortcut method of [[\yii\i18n\I18N::translate()]].
-     *
-     * The translation will be conducted according to the message category and the target language will be used.
-     *
-     * You can add parameters to a translation message that will be substituted with the corresponding value after
-     * translation. The format for this is to use curly brackets around the parameter name as you can see in the following example:
-     *
-     * ```php
-     * $username = 'Alexander';
-     * echo \Yii::t('app', 'Hello, {username}!', ['username' => $username]);
-     * ```
-     *
-     * Further formatting of message parameters is supported using the [PHP intl extensions](http://www.php.net/manual/en/intro.intl.php)
-     * message formatter. See [[\yii\i18n\I18N::translate()]] for more details.
-     *
-     * @param string $category the message category.
-     * @param string $message the message to be translated.
-     * @param array $params the parameters that will be used to replace the corresponding placeholders in the message.
-     * @param string $language the language code (e.g. `en-US`, `en`). If this is null, the current
-     * [[\yii\base\Application::language|application language]] will be used.
-     *
-     * @return string the translated message.
-     */
-    public static function t($category, $message, $params = [], $language = null)
-    {
-        return Yii::t('vova07/' . $category, $message, $params, $language);
     }
 }
