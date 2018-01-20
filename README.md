@@ -1,3 +1,5 @@
+# WARNING: This extension is not more maintained
+
 Yii2-Start blogs module.
 ========================
 This module provide a blogs managing system for Yii2-Start application.
